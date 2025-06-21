@@ -1,0 +1,29 @@
+class SearchSuggestionSystem {
+    constructor(products) {
+        this.products = [...products].sort();
+    }
+
+    getSuggestions(searchWord) {
+        const suggestions = [];
+        let prefix = '';
+        
+        for (const char of searchWord) {
+            prefix += char;
+            const matched = [];
+            
+            for (const product of this.products) {
+                if (product.startsWith(prefix)) {
+                    matched.push(product);
+                    if (matched.length === 3) break;
+                }
+            }
+            
+            suggestions.push(matched);
+        }
+        
+        return suggestions;
+    }
+}
+
+const system = new SearchSuggestionSystem(["mobile", "mouse", "moneypot", "monitor", "mousepad"]);
+console.log(system.getSuggestions("mouse"));
